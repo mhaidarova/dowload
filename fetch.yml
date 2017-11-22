@@ -1,0 +1,17 @@
+--- #synching remote folder with local
+- hosts: all
+  connection: ssh
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  tasks:  
+    - name: download file from remote system
+      fetch: 
+        src: /etc/passwd
+        dest: /tmp/passwd_"{{inventory_hostname}}"
+        flat: yes 
+
+    - name: downloades and creates folder  and downloads parent directory
+      fetch: 
+        src: /etc/services
+        dest: /tmp/{{inventory_hostname}} 
